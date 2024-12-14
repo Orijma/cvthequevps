@@ -1,0 +1,12 @@
+Système de recherche compétences 
+
+faire une recherche d'un professionnels 
+
+
+
+
+champs de type FILES pour professionnels 
+
+liste des professionnels : 
+
+zone de recherche saisie compétences qui permet d'avoir un professionnel qui a cette compétence 
