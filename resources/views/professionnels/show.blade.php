@@ -27,6 +27,13 @@
     @if($professionnel->observation != NULL)
         <p><strong>Observation :</strong> {{$professionnel->observation}}</p>
     @endif
+
+
+    @if ($professionnel->cv)
+    <a href="{{ asset('storage/' . $professionnel->cv) }}" target="_blank">Télécharger le CV</a>
+@else
+    <p>Aucun CV disponible</p>
+@endif
 </div>
 
 @endsection

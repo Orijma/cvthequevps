@@ -62,7 +62,7 @@ class ProfessionnelController extends Controller
             'metiers'=>$metiers,
             'competences'=>$competences
         ];
-        return view('professionnels.create',data: $data);
+        return view('professionnels.create', $data);
     }
 
     /**
@@ -70,17 +70,32 @@ class ProfessionnelController extends Controller
      */
     public function store(ProfessionnelRequest $professionelRequest)
     {
-        $validData= $professionelRequest->all();
-       /* if (empty($validData['email'])) {
-            $validData['email'] = 'default@example.com';
-        } */
-        $validData['domaine'] = implode(',',$professionelRequest->input('domaine'));
-
+        $validData = $professionelRequest->all();
+    
+        // Gestion des domaines sous forme de chaîne
+        $validData['domaine'] = implode(',', $professionelRequest->input('domaine'));
+    
+        // Vérifier et gérer l'upload du fichier PDF (CV)
+        if ($professionelRequest->hasFile('cv')) {
+            $cvFile = $professionelRequest->file('cv');
+    
+            // Validation des fichiers (PDF uniquement, max 2MB)
+            if ($cvFile->isValid() && $cvFile->extension() === 'pdf') {
+                $cvPath = $cvFile->store('cvs', 'public'); // Stocker dans storage/app/public/cvs
+                $validData['cv'] = $cvPath; // Ajouter le chemin au tableau validé
+            }
+        }
+    
+        // Créer un nouveau professionnel
         $nouveauProfessionnel = Professionnel::create($validData);
+    
+        // Associer les compétences
         $nouveauProfessionnel->competences()->attach($professionelRequest->input('competences'));
-        $msg = "Enregistrement Correctement effectué";
+    
+        $msg = "Enregistrement correctement effectué";
         return redirect()->route('professionnels.index')->withInformation($msg);
-     }
+    }
+    
 
     /**
      * Display the specified resource.

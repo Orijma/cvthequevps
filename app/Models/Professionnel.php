@@ -10,7 +10,7 @@ class Professionnel extends Model
     use HasFactory;
 
     protected $fillable = [
-        'prenom','nom','cp','ville','telephone','email','naissance','formation','domaine','source','observation','metier_id'
+        'prenom','nom','cp','ville','telephone','email','naissance','formation','domaine','source','observation', 'cv','metier_id'
     ];
 
     function metier() {

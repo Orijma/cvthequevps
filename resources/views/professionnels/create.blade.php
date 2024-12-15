@@ -4,7 +4,7 @@
 
 <div class="container mt-4">
     <h2>Ajouter un professionnel</h2>
-    <form method="POST" action="{{ route('professionnels.store') }}">
+    <form method="POST" action="{{ route('professionnels.store') }}" enctype="multipart/form-data">
     @csrf
 
 
@@ -145,6 +145,14 @@
             <label for="observation">Observation</label>
             <textarea id="observation" name="observation" rows="4" class="form-control">{{ old('observation') }}</textarea>
         </div>
+
+
+            <!-- Champ pour uploader le CV -->
+    <div>
+        <label for="cv">CV :</label>
+        <input type="file" name="cv" id="cv" accept=".pdf">
+    </div>
+
 
         {{-- Bouton soumettre --}}
         <div class="form-group">
